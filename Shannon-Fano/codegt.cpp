@@ -113,7 +113,7 @@ int main(){
     SFnode *SFtree;
     SFtree=gTree(freq,0,4);
     writeCWords(SFtree,symbols,cout);
-
+    /*fake change*/
     /* char (*s)[10];
     allocm(&s,5);
     funty(s,5);
