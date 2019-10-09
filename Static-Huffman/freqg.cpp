@@ -42,7 +42,7 @@ int main(int argc,char *argv[]){
             source.close();
         }
     }
-    freqtab.open("freq_tab.txt");
+    freqtab.open("freqTable.txt");
     freqtab<<nOr<<endl;
     for(i=0;i<nOr;i++){
         cout<<operators[i]<<" - "<<freq[i]<<endl;

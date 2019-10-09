@@ -6,11 +6,11 @@
 using namespace std;
 
 bool readFreqFile(char **op, int **freq,int *N) {
-    ifstream freqtab("freq_tab.txt");
+    ifstream freqtab("freqTable.txt");
     string line;
     int i=0,nOr;
     if(freqtab.fail()) {
-        cout<<"\tERROR :: Unable To Read Frequency File!! [freq_tab.txt]\n";
+        cout<<"\tERROR :: Unable To Read Frequency File!! [freqTable.txt]\n";
         return false;
     } else {
         i=0;
@@ -102,7 +102,7 @@ void writeCWords(Hnode *T,char *op,ostream &out,string pcode=""){
 }
 
 void writeCodeFile(Hnode *T,char *op,int N){
-    ofstream codeFile("H_codes.txt");
+    ofstream codeFile("prefixCodeTable.txt");
     codeFile<<N<<endl;
     writeCWords(T,op,codeFile);
     codeFile.close();

@@ -4,6 +4,7 @@
 #define MX_CODW_L 30
 using namespace std;
 
+
 typedef struct{
     char (*symbols)[MX_SMBL_L];
     char (*codewords)[MX_CODW_L];
@@ -33,7 +34,7 @@ bool readCodeFile(container *TAB) {
     return true;
 }
 
-void encode(const char *iFile,
+void decode(const char *iFile,
             const char *oFile,
             char (*symbols)[MX_SMBL_L],
             char (*codewords)[MX_CODW_L],
@@ -43,7 +44,7 @@ void encode(const char *iFile,
     char chr;
     int i,j=0;
     bool indicator[nOr],flag=false;
-
+    
     if(source.fail()) {
         cout<<"\tERROR :: Unable To Read Source File!! ["<<iFile<<"]\n";
         return;
@@ -51,17 +52,17 @@ void encode(const char *iFile,
     while(source and source>>chr){
         for(i=0;i<nOr;i++){
             if(j==0){
-                if(symbols[i][0]==chr)
+                if(codewords[i][0]==chr)
                     indicator[i]=true;
                 else
                     indicator[i]=false;
             }
             else{
-                if(symbols[i][j]!=chr and indicator[i])
+                if(codewords[i][j]!=chr and indicator[i])
                     indicator[i]=false;
             }
-            if(symbols[i][j+1]=='\0' and indicator[i]){
-                outf<<codewords[i];
+            if(codewords[i][j+1]=='\0' and indicator[i]){
+                outf<<symbols[i];
                 flag=true;
                 break;
             }
@@ -78,7 +79,7 @@ void encode(const char *iFile,
 
 int main(int argc,char *argv[]){
     if(argc==1){
-        cout<<"\t:::: Encoder ::::\nUsage: ./a.out [INPUT-FILE-NAME] [OUTPUT-FILE-NAME]\n";
+        cout<<"\t:::: Prefix Decoder ::::\nUsage: ./a.out [INPUT-FILE-NAME] [OUTPUT-FILE-NAME]\n";
         exit(0);
     }
     container codeTable;
@@ -86,7 +87,7 @@ int main(int argc,char *argv[]){
         /* for(int i=0;i<codeTable.nOr;i++){
             cout<<codeTable.symbols[i]<<" = "<<codeTable.codewords[i]<<endl;
         } */
-        encode(argv[1], argv[2], codeTable.symbols, codeTable.codewords, codeTable.nOr);
-    }
+        decode(argv[1], argv[2], codeTable.symbols, codeTable.codewords, codeTable.nOr);
+    } 
     return 0;
 }
