@@ -46,9 +46,9 @@ int gDiff(int *freq,int part,int ll,int ul){
 int gPart(int *freq,int ll,int ul){
     int o_part=ll,
         part=ll,
-        n_diff=gDiff(freq,part,ll,ul),
-        diff=gDiff(freq,part,ll,ul);
-    for(o_part=ll; o_part<ul; o_part++){
+        n_diff=gDiff(freq,part,ll,ul);
+    int diff=n_diff;
+    for(o_part=ll+1; o_part<ul; o_part++){
         n_diff=gDiff(freq,o_part,ll,ul);
         if(n_diff<diff){
             diff=n_diff;
@@ -83,39 +83,19 @@ SFnode* gTree(int *freq,int ll,int ul){
 void writeCWords(SFnode *T,char (*op)[10],ostream &out,string pcode=""){
     if(T!=nullptr){
         if(T->isLeaf()){
-            //out<<*(op+T->sIndex)<<" "<<pcode<<endl;
-            cout<<*(op+T->sIndex)<<" - "<<pcode<<endl;
+            out<<*(op+T->sIndex)<<" "<<pcode<<endl;
         }
-            //out<<*T<<" - "<<pcode<<endl;
         writeCWords(T->left,op,out,pcode+"0");
         writeCWords(T->right,op,out,pcode+"1");
     }
 }
 
-/* void funty(char (*s)[10],int n){
-    //cout<<*((char*)s+1);
-    for(int i=0;i<n;i++){
-        cout<<*(s+i)<<endl;
-        strcpy((char*)(s+i),"aa");
-    }
-} */
-
-/* void allocm(char (**s)[10],int n){
-    *s=new char[n][10];
-    for(int i=0;i<n;i++){
-        strcpy((char*)(s+i),"0123456789");
-    }
-} */
-
 int main(){
     int freq[5]={45,30,10,10,5};
     char symbols[][10]={"s1","s3","s4","s5","s2"};
     SFnode *SFtree;
+    //quickSort(freq,symbols);
     SFtree=gTree(freq,0,4);
     writeCWords(SFtree,symbols,cout);
-    
-    /* char (*s)[10];
-    allocm(&s,5);
-    funty(s,5);
-    funty(symbols,5); */
+    return 0;
 }
