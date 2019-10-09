@@ -32,8 +32,7 @@ int main(int argc,char *argv[]){
             cout<<"\tERROR :: Unable To Read File!! ["<<argv[a]<<"]\n";
         }
         else{
-            while(source){
-                source>>chr;
+            while(source and source>>noskipws>>chr){
                 for(i=0;i<nOr;i++){
                     if(operators[i]==chr)
                         freq[i]++;

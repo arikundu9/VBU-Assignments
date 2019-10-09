@@ -42,19 +42,22 @@ void encode(const char *iFile,
     ofstream outf(oFile,ios::binary);
     char chr;
     int i,j=0;
-    bool indicator[nOr],flag=false;
+    bool indicator[nOr],flag=false,flagJ0=false;
 
     if(source.fail()) {
         cout<<"\tERROR :: Unable To Read Source File!! ["<<iFile<<"]\n";
         return;
     }
-    while(source and source>>chr){
+    while(source and source>>noskipws>>chr){
         for(i=0;i<nOr;i++){
             if(j==0){
-                if(symbols[i][0]==chr)
+                if(symbols[i][0]==chr){
                     indicator[i]=true;
-                else
+                }
+                else{
                     indicator[i]=false;
+                }
+                flagJ0=(flagJ0 or indicator[i]);
             }
             else{
                 if(symbols[i][j]!=chr and indicator[i])
@@ -66,12 +69,14 @@ void encode(const char *iFile,
                 break;
             }
         }
-        if(flag){
+        if(flag or !flagJ0){
             j=0;
             flag=false;
+            flagJ0=false;
         }
         else{
             j++;
+            flagJ0=true;
         }
     }
 }
