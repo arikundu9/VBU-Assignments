@@ -100,6 +100,13 @@ void writeCWords(SFnode *T,char (*kws)[MX_KWD_L],ostream &out,string pcode=""){
     }
 }
 
+void writeCodeFile(SFnode *T,char (*kws)[MX_KWD_L],int N){
+    ofstream codeFile("prefixCodeTable.txt");
+    codeFile<<N<<endl;
+    writeCWords(T,kws,codeFile);
+    codeFile.close();
+}
+
 bool readFreqFile(container *fTAB) {
     ifstream codetab("freq_tab.txt");
     string line;
@@ -122,16 +129,59 @@ bool readFreqFile(container *fTAB) {
     return true;
 }
 
+/* int QSgPart(int *a,char (*kws)[MX_KWD_L],int lb,int ub){
+    int pivot=a[lb],
+        start=lb,
+        end=ub;
+    while(start<end){
+        while(a[start]>=pivot)
+            start++;
+        while(a[end]<pivot)
+            end--;
+        if(start<end){
+            swap(a[start],a[end]);
+            swap(kws[start],kws[end]);
+        }
+    }
+    swap(a[lb],a[end]);
+    swap(kws[lb],kws[end]);
+    return end;
+} */
+
+int QSgPart(int *arr, char (*kws)[MX_KWD_L], int low, int high){
+    int pivot=arr[high];
+    int i=(low-1);
+    for(int j=low; j<=high-1; j++){
+        if (arr[j] > pivot){
+            i++;
+            swap(arr[i],arr[j]);
+            swap(kws[i],kws[j]);
+        }
+    }
+    swap(arr[i+1],arr[high]);
+    swap(kws[i+1],kws[high]);
+    return (i+1);
+}
+
+void quicksort(int *a,char (*kws)[MX_KWD_L],int lb,int ub){
+    if(lb<ub){
+        int loc=QSgPart(a,kws,lb,ub);
+        quicksort(a,kws,lb,loc-1);
+        quicksort(a,kws,loc+1,ub);
+    }
+}
+
 int main(){
     container freqTable;
     SFnode *SFtree;
     if(readFreqFile(&freqTable)){
+        quicksort(freqTable.freq, freqTable.keywords, 0, freqTable.nOr-1);
         /* for(int i=0;i<freqTable.nOr;i++){
             cout<<freqTable.keywords[i]<<" - "<<freqTable.freq[i]<<endl;
         } */
-        //quickSort(freqTable.freq,freqTable.keywords,freqTable.nOr);
         SFtree=gTree(freqTable.freq,0,freqTable.nOr-1);
-        writeCWords(SFtree,freqTable.keywords,cout);
+        //writeCWords(SFtree, freqTable.keywords, cout);
+        writeCodeFile(SFtree, freqTable.keywords, freqTable.nOr);
     }
     return 0;
 }
