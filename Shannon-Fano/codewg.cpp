@@ -152,7 +152,7 @@ int QSgPart(int *arr, char (*kws)[MX_KWD_L], int low, int high){
     int pivot=arr[high];
     int i=(low-1);
     for(int j=low; j<=high-1; j++){
-        if (arr[j] > pivot){
+        if(arr[j] > pivot){
             i++;
             swap(arr[i],arr[j]);
             swap(kws[i],kws[j]);
@@ -160,7 +160,7 @@ int QSgPart(int *arr, char (*kws)[MX_KWD_L], int low, int high){
     }
     swap(arr[i+1],arr[high]);
     swap(kws[i+1],kws[high]);
-    return (i+1);
+    return(i+1);
 }
 
 void quicksort(int *a,char (*kws)[MX_KWD_L],int lb,int ub){
