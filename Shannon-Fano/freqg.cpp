@@ -2,6 +2,13 @@
 #include<fstream>
 using namespace std;
 
+/* Takes a string & a pattern, returns number of occurrence of the pattern on that string.
+ * Arguments:
+ * const char *s : A string
+ * const char *p : A pattern
+ * Ex: strMatchCount("abcabcababcdef","abc") returns 3.
+ *                    ------  ---
+ */
 int strMatchCount(const char *s,const char *p){
     const char *q=p;
     int c=0;

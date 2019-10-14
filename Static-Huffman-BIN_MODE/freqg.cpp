@@ -1,7 +1,13 @@
+/* ::C operators Frequency Generator::
+ * By: Arijit Kundu <arikundu9@gmail.com>
+ * Date: 15/10/2019
+ */
 #include<iostream>
 #include<fstream>
 using namespace std;
 
+
+/* A Word is a pair of a symbol and its frequency */
 class Word {
     public:
         char symbol;
