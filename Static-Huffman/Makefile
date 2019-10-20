@@ -16,9 +16,9 @@ all: freqg codewordg encoder decoder
 
 freqg: freqg.cpp
 	$(CPP) -I $(CURDIR) freqg.cpp -o $(F_BIN)
-codewordg: codewordg.cpp
+codewordg: codewordg.cpp pqueue.hpp
 	$(CPP) -I $(CURDIR) codewordg.cpp -o $(CW_BIN)
-encoder: encoder.cpp pqueue.hpp
+encoder: encoder.cpp
 	$(CPP) -I $(CURDIR) encoder.cpp -o $(EN_BIN)
 decoder: decoder.cpp
 	$(CPP) -I $(CURDIR) decoder.cpp -o $(DE_BIN)
