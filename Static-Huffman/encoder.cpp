@@ -42,7 +42,10 @@ void encode(const char *iFile,
     ofstream outf(oFile,ios::binary);
     char chr;
     int i,j=0;
-    bool indicator[nOr],flag=false,flagJ0=false;
+    bool indicator[nOr],F=false;
+    for(i=0;i<nOr;i++){
+        indicator[i]=true;
+    }
 
     if(source.fail()) {
         cout<<"\tERROR :: Unable To Read Source File!! ["<<iFile<<"]\n";
@@ -50,34 +53,29 @@ void encode(const char *iFile,
     }
     while(source and source>>noskipws>>chr){
         for(i=0;i<nOr;i++){
-            if(j==0){
-                if(symbols[i][0]==chr){
-                    indicator[i]=true;
-                }
-                else{
-                    indicator[i]=false;
-                }
-                flagJ0=(flagJ0 or indicator[i]);
+            if(chr==symbols[i][j] and indicator[i]==true){
+                indicator[i]=true;
             }
             else{
-                if(symbols[i][j]!=chr and indicator[i])
-                    indicator[i]=false;
+                indicator[i]=false;
             }
-            if(symbols[i][j+1]=='\0' and indicator[i]){
+            F = F or indicator[i];
+            if(symbols[i][j+1]=='\0' and indicator[i]==true){
                 outf<<codewords[i];
-                flag=true;
-                break;
+                F=false;
             }
         }
-        if(flag or !flagJ0){
-            j=0;
-            flag=false;
-            flagJ0=false;
+        if(F){
+            j++;
+            F=false;
         }
         else{
-            j++;
-            flagJ0=true;
+            j=0;
+            for(i=0;i<nOr;i++){
+                indicator[i]=true;
+            }
         }
+        //j%=MX_SMBL_L;
     }
 }
 
