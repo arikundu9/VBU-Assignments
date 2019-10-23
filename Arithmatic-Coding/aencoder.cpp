@@ -18,7 +18,6 @@ int main(int argc,char *argv[]){
         do{
             lb=ub;
             ub=lb+d*prob[i];
-            cout<<ub<<endl;
         }while(symbols[i++] != *chr);
         chr++;
     }
