@@ -1,5 +1,4 @@
 #include<iostream>
-#include<iomanip>
 #include<cmath>
 #define DOUBLE double
 #define ERROR_T 0.00000001
