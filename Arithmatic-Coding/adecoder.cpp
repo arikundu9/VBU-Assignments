@@ -1,5 +1,4 @@
 #include<iostream>
-#include<cmath>
 #define DOUBLE double
 #define ERROR_T 0.00000001
 #define EQUL(a,b) ( (a>b ? a-b : b-a) < ERROR_T)
