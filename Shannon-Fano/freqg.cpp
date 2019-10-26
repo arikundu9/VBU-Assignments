@@ -15,15 +15,17 @@ int strMatchCount(const char *s,const char *p){
     while(*s!='\0'){
         if(*s==*q){
             q++;
+            s++;
             if(*q=='\0'){
                 c++;
                 q=p;
             }
         }
         else{
+            if(p==q)
+                s++;
             q=p;
         }
-        s++;
     }
     return c;
 }

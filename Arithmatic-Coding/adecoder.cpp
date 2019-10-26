@@ -20,8 +20,7 @@ int main(int argc,char *argv[]){
         ub=lb;
         while(ub<code or EQUL(ub,code)){
             lb=ub;
-            ub=lb+d*prob[i];
-            i++;
+            ub=lb+d*prob[i++];
         }
         cout<<symbols[i-1];
     }
