@@ -1,39 +1,68 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
-#define CONST ((double)(0.5))
+#define CONSA ((double)(0.5))
 //#define error(exp) printf("\tERROR :: " #exp "\n")
-/* long int floor(double n){
+/* int floor(double n){
     return(n-(n%1));
 } */
-
-long int mulHash(int k,int s,double a){
+int linerProab(int *A,int s,int index,int key){
+    int i=index;
+    /*if(A[index]!=-1){
+        return(index);
+    }
+    else{
+        i++;
+        i=i%s;
+        while(i!=index){
+            if(A[i]!=-1)
+                return(i);
+            i++;
+            i=i%s;
+        }
+        return(-1);
+    }*/
+    do{
+        if(A[i]==key)
+            return(i);
+        i++;
+        i=i%s;
+    }while(i!=index);
+    return(-1);
+}
+int mulHash(int k,int s,double a){
     double fract;
     fract=fmod(k*a,1);
+    //printf("\nLOG: fmod(%d*%lf,1) floor(%d*%lf)\n",k,a,s,fract);
     return(floor(s*fract));
 }
 
-void insert(int *T,int s){
+void insert(int *A,int s,double a){
     int e,index;
     printf("Enter the element to be inserted: ");
     scanf("%d",&e);
-    index=mulHash(e,s,CONST);
-    if(T[index]!=-1){
-        printf("ERROR :: Collision occurred at index %d.\n",index);
+    index=mulHash(e,s,a);
+    printf("\nActual Index: %d, ",index);
+    index=linerProab(A,s,index,-1);
+    printf("Probed To: %d\n",index);
+    if(index==-1){
+        printf("ERROR :: Table Full!.\n");
+        //printf("ERROR :: Collision occurred at index %d.\n",index);
         //printf("\tIndex: %d",index);
     }
     else{
-        T[index]=e;
+        A[index]=e;
         printf("%d inserted successfully.\n",e);
     }
 }
 
-void search(int *T,int s){
+void search(int *A,int s,double a){
     int e,index;
     printf("Enter the element to be searched: ");
     scanf("%d",&e);
-    index=mulHash(e,s,CONST);
-    if(T[index]==e){
+    index=mulHash(e,s,a);
+    index=linerProab(A,s,index,e);
+    if(index!=-1){
         printf("%d found on index %d.\n",e,index);
     }
     else{
@@ -41,43 +70,48 @@ void search(int *T,int s){
     }
 }
 
-void delete(int *T,int s){
+void delete(int *A,int s,double a){
     int e,index;
     printf("Enter the element to be deleted: ");
     scanf("%d",&e);
-    index=mulHash(e,s,CONST);
-    if(T[index]!=e){
+    index=mulHash(e,s,a);
+    index=linerProab(A,s,index,e);
+    if(index==-1){
         printf("%d does not exists.\n",e);
     }
     else{
-        T[index]=-1;
+        A[index]=-1;
         printf("%d deleted sucessfully.\n",e);
     }
 }
 
-void display(int *T,int s){int i;
+void display(int *A,int s){
+    int i;
     for(i=0;i<s;i++){
-        printf("TABLE[%d] : %d\n",i,T[i]);
+        printf("TABLE[%d] : %d\n",i,A[i]);
     }
 }
 
 int main(){
     int *hTable=NULL,size,opt,i;
+    double a;
 
     printf("Enter size of the hash table: ");
     scanf("%d",&size);
+    printf("Enter value of the constent A: ");
+    scanf("%lf",&a);
     hTable=(int*)malloc(sizeof(int)*size);
     for(i=0;i<size;i++)
         hTable[i]=-1;
     while(1){
         printf("\n\t\t\t\t::Select Option::\n\t\t[1] Insert  [2] Search  [3] Delete  [4] Display  [5] Exit  :: ");
         scanf("%d",&opt);
-        if(opt==1)      insert(hTable,size);
-        else if(opt==2) search(hTable,size);
-        else if(opt==3) delete(hTable,size);
+        if(opt==1)      insert(hTable,size,a);
+        else if(opt==2) search(hTable,size,a);
+        else if(opt==3) delete(hTable,size,a);
         else if(opt==4) display(hTable,size);
         else if(opt==5) break;
-        else printf("\n\t\tERROR :: Invalid Option!\n");
+        else printf("\n\t\t\t\tERROR :: Invalid Option!\n");
     }
     printf("bye bye!\n");
     free(hTable);
