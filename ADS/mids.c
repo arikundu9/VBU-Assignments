@@ -1,16 +1,27 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
-#define CONST ((double)(0.5))
+#define LSDP 4
+#define MSDP 5
 //#define error(exp) printf("\tERROR :: " #exp "\n")
 /* long int floor(double n){
     return(n-(n%1));
 } */
 
-long int mulHash(int k,int s,double a){
-    double fract;
-    fract=fmod(k*a,1);
-    return(floor(s*fract));
+long int midSqHash(int k,int lsdp,int msdp){
+    long int s;
+    int m,l;
+    s=k*k;
+    m=pow(10,msdp);
+    s=s%m;
+    if(s<1){
+        return(-1);
+    }
+    else{
+        l=pow(10,lsdp-1);
+        s=s/l;
+        return(s);
+    }
 }
 
 void insert(int *T,int s){
