@@ -1,35 +1,17 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
-#define CONSA ((double)(0.5))
-//#define error(exp) printf("\tERROR :: " #exp "\n")
-/* int floor(double n){
-    return(n-(n%1));
-} */
+
 int linerProab(int *A,int s,int index,int key){
     int i=index;
-    /*if(A[index]!=-1){
-        return(index);
-    }
-    else{
-        i++;
-        i=i%s;
-        while(i!=index){
-            if(A[i]!=-1)
-                return(i);
-            i++;
-            i=i%s;
-        }
-        return(-1);
-    }*/
     do{
         if(A[i]==key)
             return(i);
-        i++;
-        i=i%s;
+        i=(i+1)%s;
     }while(i!=index);
     return(-1);
 }
+
 int mulHash(int k,int s,double a){
     double fract;
     fract=fmod(k*a,1);
@@ -47,8 +29,6 @@ void insert(int *A,int s,double a){
     printf("Probed To: %d\n",index);
     if(index==-1){
         printf("ERROR :: Table Full!.\n");
-        //printf("ERROR :: Collision occurred at index %d.\n",index);
-        //printf("\tIndex: %d",index);
     }
     else{
         A[index]=e;
@@ -113,7 +93,7 @@ int main(){
         else if(opt==5) break;
         else printf("\n\t\t\t\tERROR :: Invalid Option!\n");
     }
-    printf("bye bye!\n");
+    puts("Goodbye!");
     free(hTable);
     return(0);
 }

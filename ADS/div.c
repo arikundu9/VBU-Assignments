@@ -67,7 +67,7 @@ int main(){
         else if(opt==5) break;
         else printf("\n\t\tERROR :: Invalid Option!\n");
     }
-    printf("bye bye!\n");
+    puts("Goodbye!");
     free(hTable);
     return(0);
 }
