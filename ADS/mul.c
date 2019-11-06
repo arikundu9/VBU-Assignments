@@ -75,7 +75,7 @@ void display(int *A,int s){
 int main(){
     int *hTable=NULL,size,opt,i;
     double a;
-
+    
     printf("Enter size of the hash table: ");
     scanf("%d",&size);
     printf("Enter value of the constent A: ");
@@ -93,7 +93,7 @@ int main(){
         else if(opt==5) break;
         else printf("\n\t\t\t\tERROR :: Invalid Option!\n");
     }
-    puts("Goodbye!");
+    puts("Goodbye! (^_^)");
     free(hTable);
     return(0);
 }
