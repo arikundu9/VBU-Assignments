@@ -14,30 +14,22 @@ int linerProab(int *A,int s,int index,int key){
     return(-1);
 }
 
-int midSqHash(int k,int lsdp,int msdp){
-    int s;
-    int m,l;
-    if(msdp<lsdp)
-        return(-1);
-    s=k*k;
-    m=pow(10,msdp-1);
-    if(s<m){
-        return(-1);
-    }
-    else{
-        m*=10;
-        s=s%m;
-        l=pow(10,lsdp-1);
-        s=s/l;
-        return(s);
-    }
+int foldHash(int k,int length){
+    int sum=0,d;
+    d=pow(10,length);
+    do{
+        sum+=k%d;
+        k/=d;    
+    }while(k);
+    sum%=d;
+    return(sum);
 }
 
-void insert(int *A,int s,int lsdp,int msdp){
+void insert(int *A,int s,int length){
     int e,index;
     printf("Enter the element to be inserted: ");
     scanf("%d",&e);
-    index=midSqHash(e,lsdp,msdp);
+    index=foldHash(e,length);
     if(index==-1){
         printf("ERROR :: Unable to calculate hash.\n");
         return;
@@ -57,11 +49,11 @@ void insert(int *A,int s,int lsdp,int msdp){
     }
 }
 
-void search(int *A,int s,int lsdp,int msdp){
+void search(int *A,int s,int length){
     int e,index;
     printf("Enter the element to be searched: ");
     scanf("%d",&e);
-    index=midSqHash(e,lsdp,msdp);
+    index=foldHash(e,length);
     if(index==-1){
         printf("ERROR :: Unable to calculate hash.\n");
         return;
@@ -75,11 +67,11 @@ void search(int *A,int s,int lsdp,int msdp){
     }
 }
 
-void delete(int *A,int s,int lsdp,int msdp){
+void delete(int *A,int s,int length){
     int e,index;
     printf("Enter the element to be deleted: ");
     scanf("%d",&e);
-    index=midSqHash(e,lsdp,msdp);
+    index=foldHash(e,length);
     if(index==-1){
         printf("ERROR :: Unable to calculate hash.\n");
         return;
@@ -103,21 +95,21 @@ void display(int *A,int s){
 
 int main(){
     int *hTable=NULL,size,opt,i;
-    int lsdp,msdp;
+    int length;
     
     printf("Enter size of the hash table: ");
     scanf("%d",&size);
-    printf("Enter partition position(Right-to-Left), Upper-Limit & Lower-Limit: ");
-    scanf("%d%d",&msdp,&lsdp);
+    printf("Enter length of segments: ");
+    scanf("%d",&length);
     hTable=(int*)malloc(sizeof(int)*size);
     for(i=0;i<size;i++)
         hTable[i]=-1;
     while(1){
         printf("\n\t\t\t\t::Select Option::\n\t\t[1] Insert  [2] Search  [3] Delete  [4] Display  [5] Exit  :: ");
         scanf("%d",&opt);
-        if(opt==1)      insert(hTable,size,lsdp,msdp);
-        else if(opt==2) search(hTable,size,lsdp,msdp);
-        else if(opt==3) delete(hTable,size,lsdp,msdp);
+        if(opt==1)      insert(hTable,size,length);
+        else if(opt==2) search(hTable,size,length);
+        else if(opt==3) delete(hTable,size,length);
         else if(opt==4) display(hTable,size);
         else if(opt==5) break;
         else printf("\n\t\t\t\tERROR :: Invalid Option!\n");

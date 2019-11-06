@@ -4,6 +4,8 @@
 
 int linerProab(int *A,int s,int index,int key){
     int i=index;
+    if(index>=s)
+        return(-2);
     do{
         if(A[i]==key)
             return(i);
@@ -29,6 +31,9 @@ void insert(int *A,int s,double a){
     printf("Probed To: %d\n",index);
     if(index==-1){
         printf("ERROR :: Table Full!.\n");
+    }
+    else if(index==-2){
+        printf("ERROR :: Hash table index is grater then hash table size!.\n");
     }
     else{
         A[index]=e;
