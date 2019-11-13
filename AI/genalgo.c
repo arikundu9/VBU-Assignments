@@ -30,7 +30,12 @@ int isLegalChorom(chorom C,int cSize,int s,int e,int **graph){
             return(1);
         }
         else if(i==cSize){
-            return(0);
+            a=b;
+            b=e;
+            ++i;
+        }
+        else{
+            break;
         }
         a=b;
         b=C[i++];
@@ -40,7 +45,7 @@ int isLegalChorom(chorom C,int cSize,int s,int e,int **graph){
 void getRandChorom(chorom C,int cSize){
     int i;
     for(i=0;i<cSize;++i){
-        C[i]=iRand(0,cSize);
+        C[i]=iRand(0,cSize+1);
     }
 }
 ppln popAlloc(int size,int cmsmSize){
