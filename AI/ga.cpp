@@ -1,6 +1,8 @@
 #include<iostream>
 #include<cstdlib>
 #include<ctime>
+#include<vector>
+#include<algorithm>
 //#include "ga.hpp"
 using namespace std;
 
@@ -34,6 +36,17 @@ class graph{
                 data[i]=new int[n];
             }
         }
+        vector<int> getAdjNodes(int nd){
+            vector<int> r;
+            int j;
+            for(j=0;j<n;++j){
+                if(j!=nd){
+                    if(data[j][nd]>0 or data[nd][j]>0)
+                        r.push_back(j);
+                }
+            }
+            return r;
+        }
         void getData(){
             int i,j;
             cout<<"[+] Reading graph...\n";
@@ -44,26 +57,15 @@ class graph{
                         cin>>data[i][j];
                     }
                 }
-    }
+            }
         }
 };
 
-template<typename T>
+
 class chorom{
     public:
-        T *data;
-        int length;
+        vector<int> data;
         int fitness;
-        chorom(){
-            length=0;
-            fitness=0;
-            data=nullptr;
-        }
-        chorom(int l){
-            length=l;
-            data=new T[l];
-        }
-
         int calFitness(graph g,int s,int e){
             int a,b,i=0,sum=0;
                 do{
@@ -73,6 +75,9 @@ class chorom{
                 } while(b!=e);
             return sum;
         }
+        /* void crossWith(chorom<T> &p2){
+            
+        } */
         bool isLegal(graph g,int s,int e){
             int a,b,i=0;
             a=data[i++];
@@ -86,7 +91,7 @@ class chorom{
                         fitness=calFitness(g,s,e);
                         return(true);
                     }
-                    if(i==length){
+                    if(i==data.size()){
                         return(false);
                     }
                     a=b;
@@ -95,75 +100,55 @@ class chorom{
             return(false);
         }
         void initRandlyLegaly(graph g,int s,int e){
+            data.clear();
+            vector<int> adjNodes;
+            int rndn,nd=s;
+            data.push_back(nd);
             do{
-                initRandly();
-            } while(!isLegal(g,s,e));
+                adjNodes=g.getAdjNodes(nd);
+                //do{
+                    rndn=iRand(0,adjNodes.size()-1);
+                    nd=adjNodes[rndn];
+                //} while(count(data.begin(), data.end(),nd));
+                data.push_back(nd);
+            } while(nd!=e);
+            fitness=calFitness(g,s,e);
         }
-        void initRandly(){
-            int i;
-            if(length>0){
-                for(i=0;i<length;++i){
-                    data[i]=iRand(0,length-1);
-                }
-            }
-            else{
-                cout<<"ERROR::Choromose not initilized.\n";
-            }
-        }
-        void get(){
-            for(int i=0;i<length;++i){
-                cin>>data[i];
-            }
-        }
-        friend ostream & operator<<(ostream &out,chorom<T> &C){
-            int i;
+        friend ostream & operator<<(ostream &out,chorom &C){
             out<<"[";
-            if(C.length>1){
-                for(i=0;i<C.length-1;++i){
-                    out<<C.data[i]<<",";
-                }
-                out<<C.data[i];
+            if(!C.data.empty()){
+                for(int x : C.data) 
+                    cout<<x<<","; 
+                /* for(auto i = C.data.begin(); i != C.data.end(); ++i)
+                    out<<*i<<","; */
             }
             else
                 out<<"NULL";
             out<<"]";
             return out;
         }
-        /* ~chorom(){
-            length=0;
-            delete data;
-        } */
 };
 
-template<typename T>
 class ppln{
     public:
-        chorom<T> *data;
-        int size;
-        ppln(){
-            data=nullptr;
-            size=0;
-        }
-        ppln(int s){
-            size=s;
-            data=new chorom<T>[s];
-        }
-        void initRandly(int cS,graph grph,int s,int e){
+        vector<chorom> data;
+        void initRandly(graph grph,int s,int e){
             int i;
-            for(i=0;i<size;++i){
-                data[i]=chorom<T>(cS);
-                data[i].initRandlyLegaly(grph,s,e);
+            chorom c;
+            for(i=0;i<10;++i){
+                c.initRandlyLegaly(grph,s,e);
+                data.push_back(c);
             }
         }
         void print(){
-            for(int i=0;i<size;++i){
-                cout<<data[i]<<data[i].fitness<<endl;
+            for(auto c : data){
+                cout<<c<<c.fitness<<endl;
             }
         }
-        ~ppln(){
+        /* ~ppln(){
             size=0;
             delete data;
-        }
+        } */
 };
 
 int main(){
@@ -184,12 +169,25 @@ int main(){
     cin>>e;
     --e;
 
-    /* chorom<gene> c(non);
-    c.initRandlyLegaly(grph,s,e);
-    cout<<c; */
+    /* chorom c;
+    c.data.push_back(4);
+    c.data.push_back(5);
+    c.data.push_back(3);
+    c.data.push_back(2);
+    c.data.push_back(1);
+    cout<<c.isLegal(grph,s,e)<<endl; */
 
-    ppln<gene> pop(10);
-    pop.initRandly(non,grph,s,e); //non as choromosome size
+    /* vector<int> adj;
+    adj=grph.getAdjNodes(2);
+    for(int x : adj)
+        cout<<x<<"-"; */
+
+    /* chorom c2;
+    c2.initRandlyLegaly(grph,s,e);
+    cout<<c2; */
+
+    ppln pop;
+    pop.initRandly(grph,s,e); //non as choromosome size
     pop.print();
     return 0;
 }
