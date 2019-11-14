@@ -4,7 +4,7 @@
 #include<vector>
 #include<algorithm> 
 #include<queue> 
-//#include "ga.hpp"
+#include "pqueue.hpp"
 using namespace std;
 
 int iRand(int a,int b){
@@ -118,8 +118,8 @@ class chorom{
             } while(nd!=e);
             fitness=calFitness(g,s,e);
         }
-        bool operator<(chorom &c){
-            if(fitness<c.fitness)
+        bool operator>(chorom &c){
+            if(fitness>c.fitness)
                 return true;
             else
                 return false;
@@ -141,24 +141,27 @@ class chorom{
 
 class ppln{
     public:
-        vector<chorom> data;
+        pQueue<chorom> data;
         void initRandly(graph grph,int s,int e){
             int i;
             chorom c;
             for(i=0;i<10;++i){
                 c.initRandlyLegaly(grph,s,e);
-                data.push_back(c);
+                data.add(c);
             }
-            make_heap(data.begin(), data.end());
+            //make_heap(data.begin(), data.end());
         }
         void add(chorom c){
-            data.push_back(c);
-            make_heap(data.begin(), data.end());
+            data.add(c);
+            //make_heap(data.begin(), data.end());
         }
         void print(){
-            for(auto c : data){
+            data.forEach([&](chorom c){
                 cout<<c<<c.fitness<<endl;
-            }
+            });
+            /* for(auto c : data){
+                cout<<c<<c.fitness<<endl;
+            } */
         }
 };
 
