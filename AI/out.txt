@@ -16,14 +16,24 @@ Enter the distance between node 5 and 2 :
 Enter the distance between node 5 and 3 : 
 Enter the distance between node 5 and 4 : 
 Enter source node: Enter destination node: 
-Gen: [1] Avg Fitness: 0.131524
-Gen: [2] Avg Fitness: 0.25631
-Gen: [3] Avg Fitness: 0.270833
-Gen: [4] Avg Fitness: 0.291667
-Gen: [5] Avg Fitness: 0.3125
-Gen: [6] Avg Fitness: 0.333333
-Gen: [7] Avg Fitness: 0.333333
-Gen: [8] Avg Fitness: 0.333333
-Gen: [9] Avg Fitness: 0.333333
-Gen: [10] Avg Fitness: 0.333333
-Fit: [4,0,1,]do
+Gen: [1] Avg Fitness: 0.100304
+Gen: [2] Avg Fitness: 0.101142
+Gen: [3] Avg Fitness: 0.118632
+Gen: [4] Avg Fitness: 0.165385
+Gen: [5] Avg Fitness: 0.2
+Gen: [6] Avg Fitness: 0.2
+Gen: [7] Avg Fitness: 0.2
+Gen: [8] Avg Fitness: 0.2
+Gen: [9] Avg Fitness: 0.2
+Gen: [10] Avg Fitness: 0.2
+Gen: [11] Avg Fitness: 0.2
+Gen: [12] Avg Fitness: 0.2
+Gen: [13] Avg Fitness: 0.2
+Gen: [14] Avg Fitness: 0.2
+Gen: [15] Avg Fitness: 0.2
+Gen: [16] Avg Fitness: 0.2
+Gen: [17] Avg Fitness: 0.2
+Gen: [18] Avg Fitness: 0.2
+Gen: [19] Avg Fitness: 0.2
+Gen: [20] Avg Fitness: 0.2
+Fit: [4,0,4,0,1,]

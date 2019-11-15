@@ -27,10 +27,10 @@ float fRand(float a,float b){
     R=R*range;
     return(a+R);
 }
-void doWithProb(double p,function<void()> f){
+void doWithProb(double p,function<void()> callback){
     float pr=fRand(0,1);
     if(pr<=p)
-        f();
+        callback();
 }
 
 class graph{
@@ -87,13 +87,12 @@ class chorom{
         chorom crossWith(chorom &p2){
             typedef vector<int>::iterator itr;
             typedef pair<itr,itr> itPair;
-            itr i,j,cItr,prevJ;
+            itr i,j,prevJ;
             itPair oldCrsPoint;
             chorom child;
             float rF;
 
             child.data.push_back(data[0]);
-            cItr=child.data.end();
             i=data.begin();
             j=p2.data.begin();
             oldCrsPoint.first=i++;
@@ -108,9 +107,9 @@ class chorom{
                         //cout<<" -ok";
                         rF=fRand(0,1);
                         if(rF<=0.5)
-                            cItr=child.data.insert(child.data.end(),oldCrsPoint.first+1,i+1);
+                            child.data.insert(child.data.end(),oldCrsPoint.first+1,i+1);
                         else
-                            cItr=child.data.insert(child.data.end(),oldCrsPoint.second+1,j+1);
+                            child.data.insert(child.data.end(),oldCrsPoint.second+1,j+1);
                         oldCrsPoint.first=i;
                         oldCrsPoint.second=j;
                         prevJ=j+1;
@@ -183,9 +182,7 @@ class chorom{
             out<<"[";
             if(!C.data.empty()){
                 for(int x : C.data) 
-                    cout<<x<<","; 
-                /* for(auto i = C.data.begin(); i != C.data.end(); ++i)
-                    out<<*i<<","; */
+                    cout<<x<<",";
             }
             else
                 out<<"NULL";
@@ -207,20 +204,18 @@ class chorom{
 class ppln{
     public:
         pQueue<chorom> data;
-        int size;
         double tFitness;
-        ppln(int s){
-            size=s;
+        ppln(){
             tFitness=0;
         }
         int getSize(){
-            return size;
+            return data.size();
         }
         void clear(){
             tFitness=0;
             data.clear();
         }
-        void initRandly(graph grph,int s,int e){
+        void initRandly(graph grph,int s,int e,int size){
             int i;
             chorom c;
             for(i=0;i<size;++i){
@@ -264,14 +259,25 @@ class ppln{
             });
             return r;
         }
+        ppln getTop(int n){
+            ppln p;
+            int i=1;
+            data.forEach([&](chorom c){
+                if(i<=n)
+                    p.add(c);
+                ++i;
+            });
+            return p;
+        }
 };
 
 chorom runGeneticAlgo(ppln &pop,graph g,int s,int e,int itr){
-    ppln newPop(pop.getSize());
+    ppln newPop;
     chorom p1,p2,child;
     for(int i=1;i<=itr;++i){
         newPop.clear();
-        for(int j=0;j<newPop.getSize();++j){
+        //newPop=pop;
+        for(int j=0;j<pop.getSize();++j){
             p1=pop.getRandly();
             p2=pop.getRandly();
             child=p1.crossWith(p2);
@@ -279,9 +285,9 @@ chorom runGeneticAlgo(ppln &pop,graph g,int s,int e,int itr){
             //doWithProb(MUT_PROB,[&](){
             //    child.mutate(g);
             //});
-                
             newPop.add(child);
         }
+        //pop=newPop.getTop(pop.getSize());
         pop=newPop;
         cout<<"Gen: ["<<i<<"] Avg Fitness: "<<pop.totFitness()/pop.getSize()<<endl;
         //cout<<"New pop size:"<<newPop.data.size()<<endl;
@@ -324,10 +330,10 @@ int main(){
     c2.initRandlyLegaly(grph,s,e);
     cout<<c2; */
 
-    ppln pop(POP_SIZE);
-    pop.initRandly(grph,s,e);
+    ppln pop;
+    pop.initRandly(grph,s,e,POP_SIZE);
     chorom fit;
-    fit=runGeneticAlgo(pop,grph,s,e,10);
+    fit=runGeneticAlgo(pop,grph,s,e,20);
     cout<<"Fit: "<<fit;
     
     doWithProb(0.5,[&](){
