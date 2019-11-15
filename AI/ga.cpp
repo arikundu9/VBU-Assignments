@@ -65,7 +65,7 @@ class graph{
             for(i=0;i<n;++i){
                 for(j=0;j<n;++j){
                     if(i>j){
-                        cout<<"Enter the distance between node "<<i+1<<" and "<<j+1<<" : \n";
+                        cout<<"Enter the distance between node "<<i<<" and "<<j<<" : \n";
                         cin>>data[i][j];
                     }
                 }
@@ -79,39 +79,79 @@ class chorom{
         vector<int> data;
         double fitness;
         chorom(){
-            fitness=1;
+            fitness=0;
         }
         double getFitness(){
             return fitness;
         }
         chorom crossWith(chorom &p2){
             typedef vector<int>::iterator itr;
-            itr i,j;
-            vector<pair<itr,itr>> crossPoints;
-            for(i=data.begin(); i!=data.end(); ++i){
-                for(j=p2.data.begin(); j!=p2.data.end(); ++j){
-                    if(*i==*j and *i!=data.front() and *j!=p2.data.back())
-                        crossPoints.push_back(make_pair(i,j));
+            typedef pair<itr,itr> itPair;
+            itr i,j,cItr,prevJ;
+            itPair oldCrsPoint;
+            chorom child;
+            float rF;
+
+            cItr=child.data.begin();
+            i=data.begin();
+            j=p2.data.begin();
+            oldCrsPoint.first=i++;
+            oldCrsPoint.second=j++;
+            prevJ=j;
+            /* for(; i!=data.end(); ++i){
+                for(; j!=p2.data.end(); ++j){
+                    if(*i==*j){
+                        rF=fRand(0,1);
+                        if(rF<=0.5)
+                            cItr=C.data.insert(cItr,oldCrsPoint.first,i);
+                        else
+                            cItr=C.data.insert(cItr,oldCrsPoint.second,j);
+                        oldCrsPoint.first=i+1;
+                        oldCrsPoint.second=j+1;
+                    }
                 }
-            }
+            } */
+            do{
+                j=prevJ;
+                do{
+                        cout<<"point: ["<<*i<<","<<*j<<"]";
+                    if(*i==*j){
+                        cout<<" -ok";
+                        rF=fRand(0,1);
+                        if(rF<=0.5)
+                            cItr=child.data.insert(cItr,oldCrsPoint.first+1,i);
+                        else
+                            cItr=child.data.insert(cItr,oldCrsPoint.second+1,j);
+                        oldCrsPoint.first=i;
+                        oldCrsPoint.second=j;
+                        prevJ=j+1;
+                        ++i;
+                    }
+                        cout<<endl;
+                } while(++j!=p2.data.end());
+                cout<<"\n---------------------------------\n";
+            } while(++i!=data.end());
+            return child;
         }
         bool isLegal(graph g,int s,int e){
             int a,b,i=0;
-            a=data[i++];
-            if(a==s){
-                while(1){
-                    b=data[i++];
-                    if(g.data[a][b]<=0 && g.data[b][a]<=0){
-                        return(false);
+            if(data.size()>0){
+                a=data[i++];
+                if(a==s){
+                    while(1){
+                        b=data[i++];
+                        if(g.data[a][b]<=0 && g.data[b][a]<=0){
+                            return(false);
+                        }
+                        if(b==e){
+                            fitness=calFitness(g,s,e);
+                            return(true);
+                        }
+                        if(i==data.size()){
+                            return(false);
+                        }
+                        a=b;
                     }
-                    if(b==e){
-                        fitness=calFitness(g,s,e);
-                        return(true);
-                    }
-                    if(i==data.size()){
-                        return(false);
-                    }
-                    a=b;
                 }
             }
             return(false);
@@ -119,20 +159,26 @@ class chorom{
         void initRandlyLegaly(graph g,int s,int e){
             data.clear();
             vector<int> adjNodes;
-            int rndn,nd=s;
-            data.push_back(nd);
+            int rand_no,nod=s;
+            data.push_back(nod);
             do{
-                adjNodes=g.getAdjNodes(nd);
+                adjNodes=g.getAdjNodes(nod);
                 //do{
-                    rndn=iRand(0,adjNodes.size()-1);
-                    nd=adjNodes[rndn];
+                    rand_no=iRand(0,adjNodes.size()-1);
+                    nod=adjNodes[rand_no];
                 //} while(count(data.begin(), data.end(),nd));
-                data.push_back(nd);
-            } while(nd!=e);
+                data.push_back(nod);
+            } while(nod!=e);
             fitness=calFitness(g,s,e);
         }
         bool operator>(chorom &c){
             if(fitness>c.fitness)
+                return true;
+            else
+                return false;
+        }
+        bool operator==(chorom &c){
+            if(data==c.data)
                 return true;
             else
                 return false;
@@ -251,10 +297,8 @@ int main(){
     int s,e;
     cout<<"Enter source node: ";
     cin>>s;
-    --s;
     cout<<"Enter destination node: ";
     cin>>e;
-    --e;
 
     /* chorom c;
     c.data.push_back(4);
@@ -275,13 +319,19 @@ int main(){
 
     ppln pop(POP_SIZE);
     pop.initRandly(grph,s,e);
+    chorom p1,p2,child;
     //chorom fit;
     //fit=runGeneticAlgo(pop,grph,s,e,1000);
     pop.print();
     cout<<"Avg Fitness: "<<pop.totFitness()/pop.getSize()<<endl;
-    cout<<pop.getRandly()<<endl;
-    cout<<pop.getRandly()<<endl;
-    cout<<pop.getRandly()<<endl;
+    p1=pop.getRandly();
+    do{
+        p2=pop.getRandly();
+    } while(p1==p2);
+    cout<<"Parent 1: "<<p1<<endl;
+    cout<<"Parent 2: "<<p2<<endl;
+    child=p1.crossWith(p2);
+    cout<<"Child: "<<child<<" Validation: "<<child.isLegal(grph,s,e)<<endl;
     //cout<<"Fit: "<<fit;
     doWithProb(0.5,[&](){
         cout<<"do";
