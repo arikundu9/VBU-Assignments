@@ -1,0 +1,43 @@
+Enter no of nodes in the graph: 
+[+] Reading graph...
+Enter the distance between node 1 and 0 : 
+Enter the distance between node 2 and 0 : 
+Enter the distance between node 2 and 1 : 
+Enter the distance between node 3 and 0 : 
+Enter the distance between node 3 and 1 : 
+Enter the distance between node 3 and 2 : 
+Enter the distance between node 4 and 0 : 
+Enter the distance between node 4 and 1 : 
+Enter the distance between node 4 and 2 : 
+Enter the distance between node 4 and 3 : 
+Enter the distance between node 5 and 0 : 
+Enter the distance between node 5 and 1 : 
+Enter the distance between node 5 and 2 : 
+Enter the distance between node 5 and 3 : 
+Enter the distance between node 5 and 4 : 
+Enter source node: Enter destination node: [4,0,1,]0.333333
+[4,5,4,0,1,]0.2
+[4,5,3,5,0,1,]0.1
+[4,0,4,0,5,0,1,]0.0666667
+[4,5,0,5,3,2,1,]0.0625
+[4,0,4,5,3,5,2,5,0,5,0,1,]0.0277778
+[4,5,3,5,0,5,4,0,4,0,5,4,0,5,0,4,0,1,]0.0263158
+[4,5,0,5,4,5,4,5,3,5,3,5,2,5,2,3,2,3,5,4,5,2,1,]0.0178571
+[4,5,3,2,3,2,3,2,5,4,5,2,5,4,0,4,5,4,5,3,2,5,2,3,5,0,1,]0.0163934
+[4,5,0,4,0,4,5,2,5,0,5,3,2,3,5,2,3,2,3,2,5,3,2,5,0,4,0,5,2,1,]0.0114943
+Avg Fitness: 0.0862338
+Parent 1: [4,5,0,5,3,2,1,]
+Parent 2: [4,0,1,]
+point: [5,0]
+point: [5,1]
+--------------
+point: [0,0] -ok
+point: [5,1]
+--------------
+point: [3,1]
+--------------
+point: [2,1]
+--------------
+point: [1,1] -ok
+END
+Child: [4,5,0,1,] Validation: 1

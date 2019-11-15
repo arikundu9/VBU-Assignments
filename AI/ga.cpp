@@ -92,7 +92,8 @@ class chorom{
             chorom child;
             float rF;
 
-            cItr=child.data.begin();
+            child.data.push_back(data[0]);
+            cItr=child.data.end();
             i=data.begin();
             j=p2.data.begin();
             oldCrsPoint.first=i++;
@@ -113,15 +114,16 @@ class chorom{
             } */
             do{
                 j=prevJ;
+
                 do{
                         cout<<"point: ["<<*i<<","<<*j<<"]";
                     if(*i==*j){
                         cout<<" -ok";
                         rF=fRand(0,1);
                         if(rF<=0.5)
-                            cItr=child.data.insert(cItr,oldCrsPoint.first+1,i);
+                            cItr=child.data.insert(child.data.end(),oldCrsPoint.first+1,i+1);
                         else
-                            cItr=child.data.insert(cItr,oldCrsPoint.second+1,j);
+                            cItr=child.data.insert(child.data.end(),oldCrsPoint.second+1,j+1);
                         oldCrsPoint.first=i;
                         oldCrsPoint.second=j;
                         prevJ=j+1;
@@ -129,9 +131,16 @@ class chorom{
                     }
                         cout<<endl;
                 } while(++j!=p2.data.end());
-                cout<<"\n---------------------------------\n";
-            } while(++i!=data.end());
-            return child;
+
+                if(i==data.end()){
+                    cout<<"END\n";
+                    return child;
+                }
+                cout<<"--------------\n";
+                ++i;
+            } while(1);
+
+            //return child;
         }
         bool isLegal(graph g,int s,int e){
             int a,b,i=0;
