@@ -99,26 +99,13 @@ class chorom{
             oldCrsPoint.first=i++;
             oldCrsPoint.second=j++;
             prevJ=j;
-            /* for(; i!=data.end(); ++i){
-                for(; j!=p2.data.end(); ++j){
-                    if(*i==*j){
-                        rF=fRand(0,1);
-                        if(rF<=0.5)
-                            cItr=C.data.insert(cItr,oldCrsPoint.first,i);
-                        else
-                            cItr=C.data.insert(cItr,oldCrsPoint.second,j);
-                        oldCrsPoint.first=i+1;
-                        oldCrsPoint.second=j+1;
-                    }
-                }
-            } */
             do{
                 j=prevJ;
 
                 do{
-                        cout<<"point: ["<<*i<<","<<*j<<"]";
+                        //cout<<"point: ["<<*i<<","<<*j<<"]";
                     if(*i==*j){
-                        cout<<" -ok";
+                        //cout<<" -ok";
                         rF=fRand(0,1);
                         if(rF<=0.5)
                             cItr=child.data.insert(child.data.end(),oldCrsPoint.first+1,i+1);
@@ -129,14 +116,14 @@ class chorom{
                         prevJ=j+1;
                         ++i;
                     }
-                        cout<<endl;
+                        //cout<<endl;
                 } while(++j!=p2.data.end());
 
                 if(i==data.end()){
-                    cout<<"END\n";
+                    //cout<<"END\n";
                     return child;
                 }
-                cout<<"--------------\n";
+                //cout<<"--------------\n";
                 ++i;
             } while(1);
 
@@ -205,7 +192,6 @@ class chorom{
             out<<"]";
             return out;
         }
-    private:
         double calFitness(graph g,int s,int e){
             int a,b,i=0,sum=0;
                 do{
@@ -213,21 +199,26 @@ class chorom{
                     b=data[++i];
                     sum+= g.data[a][b]>0 ? g.data[a][b] : g.data[b][a];
                 } while(b!=e);
-            return 1/(double)sum;
+            fitness=1/(double)sum;
+            return fitness;
         }
 };
 
 class ppln{
+    public:
         pQueue<chorom> data;
         int size;
         double tFitness;
-    public:
         ppln(int s){
             size=s;
             tFitness=0;
         }
         int getSize(){
             return size;
+        }
+        void clear(){
+            tFitness=0;
+            data.clear();
         }
         void initRandly(graph grph,int s,int e){
             int i;
@@ -275,23 +266,29 @@ class ppln{
         }
 };
 
-/* chorom runGeneticAlgo(ppln &pop,graph g,int s,int e,int itr){
+chorom runGeneticAlgo(ppln &pop,graph g,int s,int e,int itr){
     ppln newPop(pop.getSize());
     chorom p1,p2,child;
     for(int i=1;i<=itr;++i){
+        newPop.clear();
         for(int j=0;j<newPop.getSize();++j){
             p1=pop.getRandly();
             p2=pop.getRandly();
             child=p1.crossWith(p2);
-            doWithProb(MUT_PROB,[&](){
-                child.mutate(g);
-            });
+            child.calFitness(g,s,e);
+            //doWithProb(MUT_PROB,[&](){
+            //    child.mutate(g);
+            //});
                 
             newPop.add(child);
         }
         pop=newPop;
+        cout<<"Gen: ["<<i<<"] Avg Fitness: "<<pop.totFitness()/pop.getSize()<<endl;
+        //cout<<"New pop size:"<<newPop.data.size()<<endl;
     }
-} */
+        //pop.print();
+    return pop.data[0];
+}
 
 int main(){
     srand(time(nullptr));
@@ -308,6 +305,7 @@ int main(){
     cin>>s;
     cout<<"Enter destination node: ";
     cin>>e;
+    cout<<endl;
 
     /* chorom c;
     c.data.push_back(4);
@@ -328,22 +326,12 @@ int main(){
 
     ppln pop(POP_SIZE);
     pop.initRandly(grph,s,e);
-    chorom p1,p2,child;
-    //chorom fit;
-    //fit=runGeneticAlgo(pop,grph,s,e,1000);
-    pop.print();
-    cout<<"Avg Fitness: "<<pop.totFitness()/pop.getSize()<<endl;
-    p1=pop.getRandly();
-    do{
-        p2=pop.getRandly();
-    } while(p1==p2);
-    cout<<"Parent 1: "<<p1<<endl;
-    cout<<"Parent 2: "<<p2<<endl;
-    child=p1.crossWith(p2);
-    cout<<"Child: "<<child<<" Validation: "<<child.isLegal(grph,s,e)<<endl;
-    //cout<<"Fit: "<<fit;
+    chorom fit;
+    fit=runGeneticAlgo(pop,grph,s,e,10);
+    cout<<"Fit: "<<fit;
+    
     doWithProb(0.5,[&](){
-        cout<<"do";
+        cout<<"do\n";
     });
     return 0;
 }

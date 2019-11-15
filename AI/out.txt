@@ -15,21 +15,15 @@ Enter the distance between node 5 and 1 :
 Enter the distance between node 5 and 2 : 
 Enter the distance between node 5 and 3 : 
 Enter the distance between node 5 and 4 : 
-Enter source node: Enter destination node: [4,0,1,]0.333333
-[4,0,1,]0.333333
-[4,0,1,]0.333333
-[4,5,3,2,1,]0.166667
-[4,5,0,1,]0.125
-[4,5,3,5,2,3,2,1,]0.0666667
-[4,5,4,5,4,0,5,2,1,]0.05
-[4,0,5,2,5,3,2,1,]0.04
-[4,5,2,3,5,2,3,2,3,2,3,5,2,1,]0.030303
-[4,5,2,3,2,5,0,5,2,1,]0.027027
-Avg Fitness: 0.150566
-Parent 1: [4,0,1,]
-Parent 2: [4,5,0,1,]
-point: [0,5]
-point: [0,0] -ok
-point: [1,1] -ok
-END
-Child: [4,5,0,1,] Validation: 1
+Enter source node: Enter destination node: 
+Gen: [1] Avg Fitness: 0.131524
+Gen: [2] Avg Fitness: 0.25631
+Gen: [3] Avg Fitness: 0.270833
+Gen: [4] Avg Fitness: 0.291667
+Gen: [5] Avg Fitness: 0.3125
+Gen: [6] Avg Fitness: 0.333333
+Gen: [7] Avg Fitness: 0.333333
+Gen: [8] Avg Fitness: 0.333333
+Gen: [9] Avg Fitness: 0.333333
+Gen: [10] Avg Fitness: 0.333333
+Fit: [4,0,1,]do

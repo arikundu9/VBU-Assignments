@@ -87,6 +87,10 @@ class pQueue{
                 throw "Queue Empty!";
             }
         }
+        void clear(){
+            while(!isEmpty())
+                remove();
+        }
         bool isEmpty(){
             return front==nullptr and rear==nullptr ;
         }
@@ -99,7 +103,7 @@ class pQueue{
                 tmp=tmp->next;
             }
         }
-        void forEach(std::function<void(V)> f){
+        void forEach(function<void(V)> f){
 				iterator it=front;
 				while(it!=nullptr){
 					f(it->data);
@@ -143,6 +147,13 @@ class pQueue{
                 throw "Invalid Index.";
             }
             return r;
+        }
+        pQueue<V> & operator=(pQueue<V> q){
+            clear();
+            q.forEach([&](V v){
+                add(v);
+            });
+            return *this;
         }
         /* void append(pQueue<V> q){
             rear->next=q.front;
