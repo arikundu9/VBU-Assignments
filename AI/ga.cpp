@@ -53,21 +53,30 @@ class graph{
             int j;
             for(j=0;j<n;++j){
                 if(j!=nd){
-                    if(data[j][nd]>0 or data[nd][j]>0)
+                    if(isConnected(j,nd))
                         r.push_back(j);
                 }
             }
             return r;
+        }
+        bool isConnected(int a,int b){
+            return data[a][b]>0 or data[b][a]>0 ;
+        }
+        int getCost(int a,int b){
+            if(isConnected(a,b))
+                return data[a][b]>0 ? data[a][b] : data[b][a];
+            else
+                return -1;
         }
         void getData(){
             int i,j;
             cout<<"[+] Reading graph...\n";
             for(i=0;i<n;++i){
                 for(j=0;j<n;++j){
-                    if(i>j){
+                    //if(i>j){
                         cout<<"Enter the distance between node "<<i<<" and "<<j<<" : \n";
                         cin>>data[i][j];
-                    }
+                    //}
                 }
             }
         }
@@ -128,6 +137,21 @@ class chorom{
 
             //return child;
         }
+        void mutate(graph g){
+            int randIdx,randIdx_2;
+            if(data.size()>=2){
+                randIdx=iRand(2,data.size()-1);
+                randIdx_2=randIdx-2;
+                if(g.isConnected(data[randIdx],data[randIdx_2])){
+                    //cout<<randIdx<<"-"<<randIdx_2<<endl<<*this<<endl;
+                    //cout<<data[randIdx_2]<<"::"<<data[randIdx]<<" - TRUE"<<endl<<*this;
+                    //cout<<"del: ["<<data[randIdx-1]<<"]-"<<randIdx-1<<"\n";
+                    data.erase(data.begin()+randIdx-1);
+                }
+            }
+
+
+        }
         bool isLegal(graph g,int s,int e){
             int a,b,i=0;
             if(data.size()>0){
@@ -135,7 +159,7 @@ class chorom{
                 if(a==s){
                     while(1){
                         b=data[i++];
-                        if(g.data[a][b]<=0 && g.data[b][a]<=0){
+                        if(!g.isConnected(a,b)){
                             return(false);
                         }
                         if(b==e){
@@ -194,7 +218,7 @@ class chorom{
                 do{
                     a=data[i];
                     b=data[++i];
-                    sum+= g.data[a][b]>0 ? g.data[a][b] : g.data[b][a];
+                    sum+= g.getCost(a,b);
                 } while(b!=e);
             fitness=1/(double)sum;
             return fitness;
@@ -216,6 +240,7 @@ class ppln{
             data.clear();
         }
         void initRandly(graph grph,int s,int e,int size){
+            cout<<"[+] Randomly Initializing Population...\n";
             int i;
             chorom c;
             for(i=0;i<size;++i){
@@ -271,10 +296,11 @@ class ppln{
         }
 };
 
-chorom runGeneticAlgo(ppln &pop,graph g,int s,int e,int itr){
+chorom runGeneticAlgo(ppln &pop,graph g,int s,int e,int itrn){
+    cout<<"[+] Running Genetic Algorithm ("<<itrn<<"times)...\n";
     ppln newPop;
     chorom p1,p2,child;
-    for(int i=1;i<=itr;++i){
+    for(int i=1;i<=itrn;++i){
         newPop.clear();
         //newPop=pop;
         for(int j=0;j<pop.getSize();++j){
@@ -283,14 +309,13 @@ chorom runGeneticAlgo(ppln &pop,graph g,int s,int e,int itr){
             child=p1.crossWith(p2);
             child.calFitness(g,s,e);
             //doWithProb(MUT_PROB,[&](){
-            //    child.mutate(g);
+                child.mutate(g);
             //});
             newPop.add(child);
         }
-        //pop=newPop.getTop(pop.getSize());
-        pop=newPop;
+        pop=newPop.getTop(pop.getSize());
+        //pop=newPop;
         cout<<"Gen: ["<<i<<"] Avg Fitness: "<<pop.totFitness()/pop.getSize()<<endl;
-        //cout<<"New pop size:"<<newPop.data.size()<<endl;
     }
         //pop.print();
     return pop.data[0];

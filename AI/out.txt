@@ -16,24 +16,66 @@ Enter the distance between node 5 and 2 :
 Enter the distance between node 5 and 3 : 
 Enter the distance between node 5 and 4 : 
 Enter source node: Enter destination node: 
-Gen: [1] Avg Fitness: 0.100304
-Gen: [2] Avg Fitness: 0.101142
-Gen: [3] Avg Fitness: 0.118632
-Gen: [4] Avg Fitness: 0.165385
-Gen: [5] Avg Fitness: 0.2
-Gen: [6] Avg Fitness: 0.2
-Gen: [7] Avg Fitness: 0.2
-Gen: [8] Avg Fitness: 0.2
-Gen: [9] Avg Fitness: 0.2
-Gen: [10] Avg Fitness: 0.2
-Gen: [11] Avg Fitness: 0.2
-Gen: [12] Avg Fitness: 0.2
-Gen: [13] Avg Fitness: 0.2
-Gen: [14] Avg Fitness: 0.2
-Gen: [15] Avg Fitness: 0.2
-Gen: [16] Avg Fitness: 0.2
-Gen: [17] Avg Fitness: 0.2
-Gen: [18] Avg Fitness: 0.2
-Gen: [19] Avg Fitness: 0.2
-Gen: [20] Avg Fitness: 0.2
-Fit: [4,0,4,0,1,]
+4-2
+[5,2,5,4,0,1,]
+3-1
+[5,3,2,5,4,5,4,0,1,]
+Gen: [1] Avg Fitness: 0.125361
+2-0
+[5,3,2,1,]
+4-2
+[5,4,5,3,2,1,]
+6-4
+[5,3,5,4,5,4,0,1,]
+Gen: [2] Avg Fitness: 0.130281
+4-2
+[5,4,5,3,2,3,2,1,]
+2-0
+[5,3,2,3,2,1,]
+Gen: [3] Avg Fitness: 0.127063
+6-4
+[5,3,5,4,5,4,0,1,]
+4-2
+[5,4,5,4,0,1,]
+4-2
+[5,4,5,4,0,1,]
+Gen: [4] Avg Fitness: 0.145833
+4-2
+[5,4,5,4,0,1,]
+3-1
+[5,4,5,0,1,]
+4-2
+[5,4,5,4,0,1,]
+Gen: [5] Avg Fitness: 0.126515
+6-4
+[5,3,5,4,5,4,0,1,]
+2-0
+[5,4,0,1,]
+3-1
+[5,4,5,0,1,]
+3-1
+[5,4,5,0,1,]
+Gen: [6] Avg Fitness: 0.134722
+4-2
+[5,4,5,4,0,1,]
+2-0
+[5,4,0,1,]
+4-2
+[5,4,5,4,0,1,]
+Gen: [7] Avg Fitness: 0.165476
+Gen: [8] Avg Fitness: 0.14127
+Gen: [9] Avg Fitness: 0.149206
+4-2
+[5,4,5,4,0,1,]
+Gen: [10] Avg Fitness: 0.147619
+Gen: [11] Avg Fitness: 0.139683
+Gen: [12] Avg Fitness: 0.142857
+Gen: [13] Avg Fitness: 0.142857
+Gen: [14] Avg Fitness: 0.142857
+Gen: [15] Avg Fitness: 0.142857
+Gen: [16] Avg Fitness: 0.142857
+Gen: [17] Avg Fitness: 0.142857
+Gen: [18] Avg Fitness: 0.142857
+Gen: [19] Avg Fitness: 0.142857
+Gen: [20] Avg Fitness: 0.142857
+Fit: [5,0,1,]
