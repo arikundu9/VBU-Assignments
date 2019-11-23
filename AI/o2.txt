@@ -487,24 +487,24 @@ Enter the distance between node 21 and 21 :
 Enter source node: Enter destination node: 
 [+] Randomly Initializing Population...
 [+] Running Genetic Algorithm (20times)...
-Gen: [1] Avg Fitness: 0.0383964
-Gen: [2] Avg Fitness: 0.0614469
-Gen: [3] Avg Fitness: 0.068254
-Gen: [4] Avg Fitness: 0.0698413
-Gen: [5] Avg Fitness: 0.0666667
-Gen: [6] Avg Fitness: 0.0714286
-Gen: [7] Avg Fitness: 0.0714286
-Gen: [8] Avg Fitness: 0.0714286
-Gen: [9] Avg Fitness: 0.0714286
-Gen: [10] Avg Fitness: 0.0714286
-Gen: [11] Avg Fitness: 0.0714286
-Gen: [12] Avg Fitness: 0.0714286
-Gen: [13] Avg Fitness: 0.0714286
-Gen: [14] Avg Fitness: 0.0714286
-Gen: [15] Avg Fitness: 0.0714286
-Gen: [16] Avg Fitness: 0.0714286
+Gen: [1] Avg Fitness: 0.0267115
+Gen: [2] Avg Fitness: 0.0333347
+Gen: [3] Avg Fitness: 0.0407017
+Gen: [4] Avg Fitness: 0.0463275
+Gen: [5] Avg Fitness: 0.0519903
+Gen: [6] Avg Fitness: 0.0546176
+Gen: [7] Avg Fitness: 0.0603175
+Gen: [8] Avg Fitness: 0.0603175
+Gen: [9] Avg Fitness: 0.0603175
+Gen: [10] Avg Fitness: 0.0619048
+Gen: [11] Avg Fitness: 0.068254
+Gen: [12] Avg Fitness: 0.0650794
+Gen: [13] Avg Fitness: 0.0634921
+Gen: [14] Avg Fitness: 0.0666667
+Gen: [15] Avg Fitness: 0.0666667
+Gen: [16] Avg Fitness: 0.068254
 Gen: [17] Avg Fitness: 0.0714286
 Gen: [18] Avg Fitness: 0.0714286
 Gen: [19] Avg Fitness: 0.0714286
 Gen: [20] Avg Fitness: 0.0714286
-Fit: [7,2,4,3,12,15,]
+Fit: [7,2,4,3,11,10,17,15,]

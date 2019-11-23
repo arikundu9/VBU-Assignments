@@ -2,6 +2,7 @@
 #include<cstdlib>
 #include<ctime>
 #include<vector>
+#include<iomanip>
 //#include<algorithm> 
 //#include<queue> 
 #include<functional> 
@@ -74,7 +75,7 @@ class graph{
             for(i=0;i<n;++i){
                 for(j=0;j<n;++j){
                     //if(i>j){
-                        cout<<"Enter the distance between node "<<i<<" and "<<j<<" : \n";
+                        //cout<<"Enter the distance between node "<<i<<" and "<<j<<" : \n";
                         cin>>data[i][j];
                     //}
                 }
@@ -300,6 +301,7 @@ chorom runGeneticAlgo(ppln &pop,graph g,int s,int e,int itrn){
     cout<<"[+] Running Genetic Algorithm ("<<itrn<<"times)...\n";
     ppln newPop;
     chorom p1,p2,child;
+    double avgf;
     for(int i=1;i<=itrn;++i){
         newPop.clear();
         //newPop=pop;
@@ -315,7 +317,10 @@ chorom runGeneticAlgo(ppln &pop,graph g,int s,int e,int itrn){
         }
         pop=newPop.getTop(pop.getSize());
         //pop=newPop;
-        cout<<"Gen: ["<<i<<"] Avg Fitness: "<<pop.totFitness()/pop.getSize()<<endl;
+        avgf=pop.totFitness()/pop.getSize();
+        cout<<"Gen: ["<<right<<setfill('-')<<setw(8)<<i<<"] Avg Fitness: "<<left<<setw(10)<<avgf<<" Fittest:"<<pop.data[0]<<endl;
+        if(avgf==0.083333333)
+            break;
     }
         //pop.print();
     return pop.data[0];
@@ -359,10 +364,7 @@ int main(){
     pop.initRandly(grph,s,e,POP_SIZE);
     chorom fit;
     fit=runGeneticAlgo(pop,grph,s,e,20);
-    cout<<"Fit: "<<fit;
+    cout<<"Fittest: "<<fit<<endl;
     
-    doWithProb(0.5,[&](){
-        cout<<"do\n";
-    });
     return 0;
 }
