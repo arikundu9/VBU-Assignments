@@ -3,15 +3,16 @@
 #include<ctime>
 #include<vector>
 #include<iomanip>
-//#include<algorithm> 
+#include<algorithm> 
 //#include<queue> 
 #include<functional> 
 #include<iterator>
 #include<utility> 
+#include<fstream>
 #include "pqueue.hpp"
 #define POP_SIZE 10
-#define MUT_PROB 0.2
-#define CRS_PROB 0.5
+#define MUT_PROB 0.5
+//#define CRS_PROB 0.5
 using namespace std;
 
 int iRand(int a,int b){
@@ -52,6 +53,7 @@ class graph{
         vector<int> getAdjNodes(int nd){
             vector<int> r;
             int j;
+            r.clear();
             for(j=0;j<n;++j){
                 if(j!=nd){
                     if(isConnected(j,nd))
@@ -87,11 +89,11 @@ class graph{
 class chorom{
     public:
         vector<int> data;
-        double fitness;
+        long double fitness;
         chorom(){
             fitness=0;
         }
-        double getFitness(){
+        long double getFitness(){
             return fitness;
         }
         chorom crossWith(chorom &p2){
@@ -139,19 +141,45 @@ class chorom{
             //return child;
         }
         void mutate(graph g){
+            int r=iRand(1,10);
+            if(r<=5)
+                mutate1(g);
+            else
+                mutate2(g);
+        }
+        void mutate1(graph g){
             int randIdx,randIdx_2;
-            if(data.size()>=2){
-                randIdx=iRand(2,data.size()-1);
-                randIdx_2=randIdx-2;
-                if(g.isConnected(data[randIdx],data[randIdx_2])){
-                    //cout<<randIdx<<"-"<<randIdx_2<<endl<<*this<<endl;
-                    //cout<<data[randIdx_2]<<"::"<<data[randIdx]<<" - TRUE"<<endl<<*this;
-                    //cout<<"del: ["<<data[randIdx-1]<<"]-"<<randIdx-1<<"\n";
-                    data.erase(data.begin()+randIdx-1);
+            if(data.size()>=3){
+                for(int i=2;i<=data.size()-1;++i){
+                    //randIdx=iRand(2,data.size()-1);
+                    randIdx=i;
+                    randIdx_2=randIdx-2;
+                    if(g.isConnected(data[randIdx],data[randIdx_2])){
+                        //cout<<randIdx<<"-"<<randIdx_2<<endl<<*this<<endl;
+                        //cout<<data[randIdx_2]<<"::"<<data[randIdx]<<" - TRUE"<<endl<<*this;
+                        //cout<<"del: ["<<data[randIdx-1]<<"]-"<<randIdx-1<<"\n";
+                        data.erase(data.begin()+randIdx-1);
+                        break;
+                    }
                 }
             }
-
-
+        }
+        void mutate2(graph g){
+            int i,j;
+            bool f=false;
+            if(data.size()>=2){
+                for(i=0;i<=data.size()-2;++i){
+                    for(j=0;j<g.n;++j){
+                        if(g.isConnected(data[i],j) and g.isConnected(data[i+1],j)){
+                            data.insert(data.begin()+i+1,j);
+                            f=true;
+                            break;
+                        }
+                    }
+                    if(f)
+                        break;
+                }
+            }
         }
         bool isLegal(graph g,int s,int e){
             int a,b,i=0;
@@ -179,16 +207,28 @@ class chorom{
         void initRandlyLegaly(graph g,int s,int e){
             data.clear();
             vector<int> adjNodes;
-            int rand_no,nod=s;
+            int rand_no,nod=s,i;
             data.push_back(nod);
             do{
+                adjNodes.clear();
                 adjNodes=g.getAdjNodes(nod);
-                //do{
+                //cout<<"\nno of adg nod:"<<adjNodes.size()<<"\n";
+                i=0;
+                do{
                     rand_no=iRand(0,adjNodes.size()-1);
                     nod=adjNodes[rand_no];
-                //} while(count(data.begin(), data.end(),nd));
+                    //cout<<"{"<<nod<<"}";
+                    ++i;
+                    if(i==g.n){
+                        //cout<<"IMpossible\n";
+                        initRandlyLegaly(g,s,e);
+                        return;
+                    }
+                } while(count(data.begin(), data.end(),nod)>0 and i<=g.n);
+                //cout<<nod<<"+";
                 data.push_back(nod);
             } while(nod!=e);
+            //cout<<endl;
             fitness=calFitness(g,s,e);
         }
         bool operator>(chorom &c){
@@ -214,14 +254,15 @@ class chorom{
             out<<"]";
             return out;
         }
-        double calFitness(graph g,int s,int e){
+        long double calFitness(graph g,int s,int e){
             int a,b,i=0,sum=0;
                 do{
                     a=data[i];
                     b=data[++i];
                     sum+= g.getCost(a,b);
                 } while(b!=e);
-            fitness=1/(double)sum;
+            fitness=1/(long double)sum;
+            //fitness=sum;
             return fitness;
         }
 };
@@ -270,11 +311,11 @@ class ppln{
                 cout<<c<<c.fitness<<endl;
             } */
         }
-        chorom& getRandly(){
+        chorom getLuckily(){
             float arrow=fRand(0,359);
             double angl=0;
             vector<float> angles;
-            static chorom r;
+            chorom r;
             bool f=true;
             data.forEach([&](chorom c){
                 angl+=(c.getFitness()/tFitness)*360;
@@ -284,6 +325,10 @@ class ppln{
                 }
             });
             return r;
+        }
+        chorom getRandly(){
+            int arrow=iRand(0,data.size()-1);
+            return data[arrow];
         }
         ppln getTop(int n){
             ppln p;
@@ -295,38 +340,56 @@ class ppln{
             });
             return p;
         }
+        chorom &operator[](int n){
+            return data[n];
+        }
 };
 
 chorom runGeneticAlgo(ppln &pop,graph g,int s,int e,int itrn){
     cout<<"[+] Running Genetic Algorithm ("<<itrn<<"times)...\n";
+    ofstream out("plot.txt");
     ppln newPop;
     chorom p1,p2,child;
     double avgf;
     for(int i=1;i<=itrn;++i){
         newPop.clear();
-        //newPop=pop;
+        newPop=pop;
         for(int j=0;j<pop.getSize();++j){
-            p1=pop.getRandly();
-            p2=pop.getRandly();
+            p1=pop.getLuckily();
+            p2=pop.getLuckily();
             child=p1.crossWith(p2);
             child.calFitness(g,s,e);
-            //doWithProb(MUT_PROB,[&](){
+            doWithProb(MUT_PROB,[&](){
                 child.mutate(g);
-            //});
+            });
             newPop.add(child);
         }
-        pop=newPop.getTop(pop.getSize());
+
+
+        /* plot 'plot.txt' using 1:2 with lines title "Top Fitness",'plot.txt' using 1:3 with lines title "Avg Fitness" */
+        /* pop=pop.getTop(1);
+        for(int m=1;m<=newPop.getSize()-1;++m){
+            pop.add(newPop.getRandly());
+        } */
+
+        //pop=newPop.getTop(pop.getSize()-2);
+        //pop.add(newPop[0]);
+        //pop.add(newPop[1]);
+
         //pop=newPop;
+
+        pop=newPop.getTop(pop.getSize());
+        pop.print();
         avgf=pop.totFitness()/pop.getSize();
-        cout<<"Gen: ["<<right<<setfill('-')<<setw(8)<<i<<"] Avg Fitness: "<<left<<setw(10)<<avgf<<" Fittest:"<<pop.data[0]<<endl;
-        if(avgf==0.083333333)
-            break;
+        out<<i<<" "<<pop.data[0].fitness<<" "<<avgf<<endl;
+        cout<<"Gen: ["<<right<<setfill('-')<<setw(5)<<i<<"] Top_Fitness:"<<left<<setw(9)<<pop.data[0].fitness<<" Avg_Fitness:"<<left<<setw(9)<<avgf<<" Fittest:"<<pop.data[0]<<endl;
     }
         //pop.print();
+        out.close();
     return pop.data[0];
 }
 
-int main(){
+int main(int argc,char *argv[]){
     srand(time(nullptr));
     typedef int gene;
 
@@ -363,7 +426,7 @@ int main(){
     ppln pop;
     pop.initRandly(grph,s,e,POP_SIZE);
     chorom fit;
-    fit=runGeneticAlgo(pop,grph,s,e,20);
+    fit=runGeneticAlgo(pop,grph,s,e,atoi(argv[1]));
     cout<<"Fittest: "<<fit<<endl;
     
     return 0;

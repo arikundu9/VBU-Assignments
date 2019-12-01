@@ -1,81 +1,26 @@
 Enter no of nodes in the graph: 
 [+] Reading graph...
-Enter the distance between node 1 and 0 : 
-Enter the distance between node 2 and 0 : 
-Enter the distance between node 2 and 1 : 
-Enter the distance between node 3 and 0 : 
-Enter the distance between node 3 and 1 : 
-Enter the distance between node 3 and 2 : 
-Enter the distance between node 4 and 0 : 
-Enter the distance between node 4 and 1 : 
-Enter the distance between node 4 and 2 : 
-Enter the distance between node 4 and 3 : 
-Enter the distance between node 5 and 0 : 
-Enter the distance between node 5 and 1 : 
-Enter the distance between node 5 and 2 : 
-Enter the distance between node 5 and 3 : 
-Enter the distance between node 5 and 4 : 
 Enter source node: Enter destination node: 
-4-2
-[5,2,5,4,0,1,]
-3-1
-[5,3,2,5,4,5,4,0,1,]
-Gen: [1] Avg Fitness: 0.125361
-2-0
-[5,3,2,1,]
-4-2
-[5,4,5,3,2,1,]
-6-4
-[5,3,5,4,5,4,0,1,]
-Gen: [2] Avg Fitness: 0.130281
-4-2
-[5,4,5,3,2,3,2,1,]
-2-0
-[5,3,2,3,2,1,]
-Gen: [3] Avg Fitness: 0.127063
-6-4
-[5,3,5,4,5,4,0,1,]
-4-2
-[5,4,5,4,0,1,]
-4-2
-[5,4,5,4,0,1,]
-Gen: [4] Avg Fitness: 0.145833
-4-2
-[5,4,5,4,0,1,]
-3-1
-[5,4,5,0,1,]
-4-2
-[5,4,5,4,0,1,]
-Gen: [5] Avg Fitness: 0.126515
-6-4
-[5,3,5,4,5,4,0,1,]
-2-0
-[5,4,0,1,]
-3-1
-[5,4,5,0,1,]
-3-1
-[5,4,5,0,1,]
-Gen: [6] Avg Fitness: 0.134722
-4-2
-[5,4,5,4,0,1,]
-2-0
-[5,4,0,1,]
-4-2
-[5,4,5,4,0,1,]
-Gen: [7] Avg Fitness: 0.165476
-Gen: [8] Avg Fitness: 0.14127
-Gen: [9] Avg Fitness: 0.149206
-4-2
-[5,4,5,4,0,1,]
-Gen: [10] Avg Fitness: 0.147619
-Gen: [11] Avg Fitness: 0.139683
-Gen: [12] Avg Fitness: 0.142857
-Gen: [13] Avg Fitness: 0.142857
-Gen: [14] Avg Fitness: 0.142857
-Gen: [15] Avg Fitness: 0.142857
-Gen: [16] Avg Fitness: 0.142857
-Gen: [17] Avg Fitness: 0.142857
-Gen: [18] Avg Fitness: 0.142857
-Gen: [19] Avg Fitness: 0.142857
-Gen: [20] Avg Fitness: 0.142857
-Fit: [5,0,1,]
+[+] Randomly Initializing Population...
+[+] Running Genetic Algorithm (20times)...
+Gen: [-------1] Top Fitness: 0.0285714- Avg Fitness: 0.0189221- Fittest:[7,2,0,2,4,3,5,10,17,10,9,19,9,10,17,15,]
+Gen: [-------2] Top Fitness: 0.0344828- Avg Fitness: 0.0243847- Fittest:[7,8,6,4,6,5,10,5,10,17,12,15,]
+Gen: [-------3] Top Fitness: 0.037037-- Avg Fitness: 0.0324731- Fittest:[7,21,8,6,5,3,4,6,5,10,5,10,17,15,]
+Gen: [-------4] Top Fitness: 0.0526316- Avg Fitness: 0.0374773- Fittest:[7,2,0,2,4,6,5,10,17,15,]
+Gen: [-------5] Top Fitness: 0.0526316- Avg Fitness: 0.0369469- Fittest:[7,2,0,2,4,6,5,10,17,15,]
+Gen: [-------6] Top Fitness: 0.0526316- Avg Fitness: 0.0405809- Fittest:[7,2,0,2,4,6,5,10,17,15,]
+Gen: [-------7] Top Fitness: 0.0555556- Avg Fitness: 0.0454319- Fittest:[7,8,6,4,6,5,10,17,15,]
+Gen: [-------8] Top Fitness: 0.0769231- Avg Fitness: 0.0645726- Fittest:[7,8,6,5,10,17,15,]
+Gen: [-------9] Top Fitness: 0.0769231- Avg Fitness: 0.0728205- Fittest:[7,8,6,5,10,17,15,]
+Gen: [------10] Top Fitness: 0.0769231- Avg Fitness: 0.0728205- Fittest:[7,8,6,5,10,17,15,]
+Gen: [------11] Top Fitness: 0.0769231- Avg Fitness: 0.0738462- Fittest:[7,8,6,5,10,17,15,]
+Gen: [------12] Top Fitness: 0.0769231- Avg Fitness: 0.0717949- Fittest:[7,8,6,5,10,17,15,]
+Gen: [------13] Top Fitness: 0.0769231- Avg Fitness: 0.0748718- Fittest:[7,8,6,5,10,17,15,]
+Gen: [------14] Top Fitness: 0.0769231- Avg Fitness: 0.0748718- Fittest:[7,8,6,5,10,17,15,]
+Gen: [------15] Top Fitness: 0.0769231- Avg Fitness: 0.0730128- Fittest:[7,8,6,5,10,17,15,]
+Gen: [------16] Top Fitness: 0.0769231- Avg Fitness: 0.0740385- Fittest:[7,8,6,5,10,17,15,]
+Gen: [------17] Top Fitness: 0.0769231- Avg Fitness: 0.0754808- Fittest:[7,8,6,5,10,17,15,]
+Gen: [------18] Top Fitness: 0.0769231- Avg Fitness: 0.0754808- Fittest:[7,8,6,5,10,17,15,]
+Gen: [------19] Top Fitness: 0.0769231- Avg Fitness: 0.0754808- Fittest:[7,8,6,5,10,17,15,]
+Gen: [------20] Top Fitness: 0.0769231- Avg Fitness: 0.0769231- Fittest:[7,8,6,5,10,17,15,]
+Fittest: [7,8,6,5,10,17,15,]

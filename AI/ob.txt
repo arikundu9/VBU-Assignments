@@ -1,0 +1,26 @@
+Enter no of nodes in the graph: 
+[+] Reading graph...
+Enter source node: Enter destination node: 
+[+] Randomly Initializing Population...
+[+] Running Genetic Algorithm (20times)...
+Gen: [-------1] Top Fitness: 0.1------- Avg Fitness: 0.0745513- Fittest:[4,3,11,10,17,20,]
+Gen: [-------2] Top Fitness: 0.1------- Avg Fitness: 0.0876923- Fittest:[4,3,11,10,17,20,]
+Gen: [-------3] Top Fitness: 0.1------- Avg Fitness: 0.0933333- Fittest:[4,3,11,10,17,20,]
+Gen: [-------4] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [-------5] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [-------6] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [-------7] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [-------8] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [-------9] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [------10] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [------11] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [------12] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [------13] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [------14] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [------15] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [------16] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [------17] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [------18] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [------19] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Gen: [------20] Top Fitness: 0.1------- Avg Fitness: 0.1------- Fittest:[4,3,11,10,17,20,]
+Fittest: [4,3,11,10,17,20,]
